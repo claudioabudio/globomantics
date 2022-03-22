@@ -6,6 +6,7 @@ import { useEffect, useState, useMemo } from 'react';
 import {BrowserRouter, Routes, Route, } from 'react-router-dom'
 import SearchResults from '../search-results'
 import HouseFilter from './house-filter';
+import HouseFromQuery from '../house/HouseFromQuery';
 
 function App() {
   const [allHouses, setAllHouses] = useState([])
@@ -36,6 +37,7 @@ function App() {
           <Route path="/searchresults/:country" 
                 element={<SearchResults allHouses={allHouses}/>}
           />
+          <Route path="/house/:id" element={<HouseFromQuery allHouses={allHouses}/>}/>
           <Route path="/" element={<FeatureHouse house={featuredHouse}/>}/> 
       </Routes>
       </div>
