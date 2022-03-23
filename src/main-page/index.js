@@ -8,6 +8,7 @@ import SearchResults from '../search-results'
 import HouseFilter from './house-filter';
 import HouseFromQuery from '../house/HouseFromQuery';
 import useFeaturedHouse from '../hooks/useFeaturedHouse';
+import HousesContext from '../contexts/housesContext';
 
 function App() {
   
@@ -17,17 +18,23 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className="container">
-        <Header subtitle="Providing houses all over the world !" />
-        <HouseFilter allHouses={allHouses}/>
-      <Routes>
-          <Route path="/searchresults/:country" 
-                element={<SearchResults allHouses={allHouses}/>}
-          />
-          <Route path="/house/:id" element={<HouseFromQuery allHouses={allHouses}/>}/>
-          <Route path="/" element={<FeatureHouse house={featuredHouse}/>}/> 
-      </Routes>
-      </div>
+      <HousesContext.Provider value={allHouses}>
+        <div className="container">
+          <Header subtitle="Providing houses all over the world !" />
+          <HouseFilter/>
+          <Routes>
+            <Route
+              path="/searchresults/:country"
+              element={<SearchResults/>}
+            />
+            <Route
+              path="/house/:id"
+              element={<HouseFromQuery/>}
+            />
+            <Route path="/" element={<FeatureHouse house={featuredHouse} />} />
+          </Routes>
+        </div>
+      </HousesContext.Provider>
     </BrowserRouter>
   );
 }
